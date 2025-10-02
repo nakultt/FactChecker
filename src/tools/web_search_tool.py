@@ -1,5 +1,6 @@
 from langchain.tools import BaseTool
 from langchain_community.utilities import DuckDuckGoSearchAPIWrapper
+from typing import Type
 from pydantic import BaseModel, Field
 
 class WebSearchInput(BaseModel):
@@ -8,7 +9,7 @@ class WebSearchInput(BaseModel):
 class WebSearchTool(BaseTool):
     name: str = "web_search"
     description: str = "Search the web using DuckDuckGo. Only use this if local_search doesn't find relevant information."
-    args_schema = WebSearchInput
+    args_schema: Type[BaseModel] = WebSearchInput #type: ignore
     
     def _run(self, query: str) -> str:
         
@@ -19,3 +20,4 @@ class WebSearchTool(BaseTool):
         
         except Exception as e:
             return f"Error searching the web: {str(e)}"
+    

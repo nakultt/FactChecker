@@ -1,7 +1,7 @@
 from langchain.tools import BaseTool
 from langchain_chroma import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
-from typing import Optional
+from typing import Optional,Type
 from pydantic import BaseModel, Field
 
 
@@ -12,7 +12,7 @@ class LocalSearchInput(BaseModel):
 class LocalSearchTool(BaseTool):
     name: str = "local_search"
     description: str = "Search the local ChromaDB database for relevant news articles and information. Use this first before trying web search."
-    args_schema = LocalSearchInput 
+    args_schema: Type[BaseModel] = LocalSearchInput #type: ignore
     vectorstore: Optional[Chroma] = None
     
     def __init__(self):
