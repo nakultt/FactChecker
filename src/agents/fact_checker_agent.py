@@ -15,7 +15,7 @@ def create_fact_checker_agent():
         WebSearchTool()
     ]
     
-    template = """You are a fact-checking assistant. Your goal is to find accurate information to verify claims.
+    template = """You are a fact-checking assistant. Your goal is to verify claims and determine their accuracy.
 
 You have access to the following tools:
 
@@ -23,7 +23,7 @@ You have access to the following tools:
 
 Tool names: {tool_names}
 
-Use the following format:
+CRITICAL: Follow this EXACT format. Each line MUST start with the exact keyword:
 
 Question: the input question you must answer
 Thought: you should always think about what to do
@@ -34,7 +34,33 @@ Observation: the result of the action
 Thought: I now know the final answer
 Final Answer: the final answer to the original input question
 
-IMPORTANT: Always try local_search FIRST. Only use web_search if local_search doesn't find relevant information.
+RULES:
+1. ALWAYS use "Action:" on its own line before specifying the tool
+2. ALWAYS use "Action Input:" on its own line before the query
+3. Try local_search FIRST before web_search
+4. After using tools, start your conclusion with "Thought: I now know the final answer"
+5. Your Final Answer MUST begin with a verdict:
+   ✅ TRUE - claim is completely accurate
+   ⚠️ PARTIALLY TRUE - claim has some truth but is misleading
+   ❌ FALSE - claim is incorrect or unsupported
+
+Example output:
+Thought: I need to verify this claim about the Olympics
+Action: local_search
+Action Input: Tokyo Olympics 2020 2021 COVID pandemic
+
+Observation: [search results]
+
+Thought: I now know the final answer
+Final Answer: ✅ TRUE
+
+The Tokyo 2020 Olympics were indeed held in 2021 due to the COVID-19 pandemic.
+
+Evidence:
+- The Olympics were postponed from 2020 to 2021
+- Held from July 23 to August 8, 2021
+
+Sources: [URLs from search]
 
 Begin!
 

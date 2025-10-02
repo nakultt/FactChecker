@@ -5,5 +5,4 @@
 # LangGraph
 .langgraph_api/
 .env
-data
 __pycache__

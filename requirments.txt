@@ -1,0 +1,24 @@
+# Core LangChain
+langchain==0.3.13
+langchain-community==0.3.13
+langchain-chroma==0.1.4
+langchain-ollama==0.2.3
+
+# Vector Store
+chromadb==0.5.23
+
+# Embeddings & LLM
+ollama==0.4.4
+
+# Web Search
+duckduckgo-search==7.0.0
+
+# News API
+newsapi-python==0.2.7
+
+# Utilities
+python-dotenv==1.0.1
+pydantic==2.10.5
+
+# Optional but recommended
+requests==2.32.3

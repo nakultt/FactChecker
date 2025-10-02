@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 from langchain_chroma import Chroma
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from typing import Optional,Type
 from pydantic import BaseModel, Field
 
